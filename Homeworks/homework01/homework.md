@@ -1,3 +1,5 @@
+Due Wednesday of Week 4 (Feb 1st, 2023)
+
 1. What is the difference between an operating system and middleware?
 
 2. What is the relationship between threads and processes?
