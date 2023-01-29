@@ -20,4 +20,4 @@ Due Wednesday of Week 4 (Feb 1st, 2023)
 
 7. Perform an Internet search of the C standard library API and find out how to get information from the command line first by using a `printf[]` call to display a prompt, then another function call [which you will look up] to get the user input. Write a program in C to prompt the user for their demographic information including name, age, class year, and any three other data items you wish. Structure the program as a call-and-response application such that each data item is a single question with a single answer entry. When all data has been obtained, display the data on the console. Each data item must be on a separate line, and it must be appropriately labeled. The output must be done using a **single** `printf[]` statement.
 
-You can find the program for this problem in this file: [problem7.c](Homeworks/homework01/problem7.c)
+You can find the program for this problem in this file: [problem7.c](https://github.com/Sarronnn/CMSI-3510_Tadesse-Ramchandran-Peer-Abrams/blob/7cfbd4d9b34306af5b8e0b8298df4b235873720e/Homeworks/homework01/problem7.c)
