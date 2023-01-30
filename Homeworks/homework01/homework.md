@@ -42,7 +42,6 @@ int main( int argc, char * argv[] ) {
     printf("What is your favorite song?\n");
     gets(inputs[5]);
 
-
     printf("\nThis is the info you entered:\nName: %s\nAge: %s\nClass Year: %s\nFavorite Hobby: %s\nFavorite TV Show: %s\nFavorite Song: %s\n\n", inputs[0], inputs[1], inputs[2], inputs[3], inputs[4], inputs[5]);
 }
 ```
