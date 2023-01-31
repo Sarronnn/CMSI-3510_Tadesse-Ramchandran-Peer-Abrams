@@ -9,10 +9,22 @@ Due Wednesday of Week 4 (Feb 1st, 2023)
 4. Suppose thread A goes through a loop 100 times, each time performing one disk I/O operation, taking 10 milliseconds, and then some computation, taking 1 millisecond. While each 10-millisecond disk operation is in progress, thread A cannot make any use of the processor. Thread B runs for 1 second, purely in the processor, with no I/O. One millisecond of processor time is spent each time the processor switches threads; other than this switching cost, there is no problem with the processor working on thread B during one of thread A's I/O operations. [The processor and disk drive do not contend for memory access bandwidth, for example.]
 
     + Suppose the processor and disk work purely on thread A until its completion, and then the processor switches to thread B and runs all of that thread. What will the total elapsed time be?
+
+    A = (100 * 10 + 100 * 1)  millisconds
+    Switch = 1 millisconds
+    B = 1000 millisconds
+    A + Switch + B = 2101 millisconds
     
     + Suppose the processor starts out working on thread A, but every time thread A performs a disk operation, the processor switches to B during the operation and then back to A upon the disk operation's completion. What will the total elapsed time be?
+
+    A = (100 * 1 + 100 * 1) millisconds
+    Switch = (100 * 1) millisconds
+    B = 1000 millisconds
+    A + Switch + B = 1300 millisconds
     
     + _In your opinion_, which do you think is more efficient, and why?
+
+    I bleive that the second scenario is more efficient as even though it has a lot of switching, saving 9 milliseconds on every Disk I/O operation that A has to do leads to huge saves in time. Scenario 1 times at 2101 millisconds whereas scenario 2 tims at 1300 millisconds. That is a 701 millisconds save from 1 that 2 has. Therefor I beleive 2 to be the most efficient option as it leads to the fastest output. 
 
 5. Find and read the documentation for `pthread_cancel[]`. Then, using your C programming environment, use the information and the model provided in Figure 2.4 on page 26 of the text book to write a program in which the initial [main] thread creates a second thread. The main thread should sit on a read call of some kind, waiting to read input from the keyboard, waiting until the user presses the Enter key. At that point, it should kill off the second thread and print out a message reporting that it has done so. Meanwhile, the second thread should be in an infinite loop; during each iteration it must sleep five seconds and then print out a message. Try running your program. Can the sleeping thread print its periodic messages while the main thread is waiting for keyboard input? Can the main thread read input, kill the sleeping thread, and print a message while the sleeping thread is in the early part of one of its five-second sleeps?
 
