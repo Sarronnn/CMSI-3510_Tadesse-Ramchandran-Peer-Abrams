@@ -2,6 +2,8 @@ Due Wednesday of Week 4 (Feb 1st, 2023)
 
 1. What is the difference between an operating system and middleware?
 
+An operating system is software that can manage hardware for the execution of other applications. It manages concurrency, networking, file systems, and interactions between different computations. Middleware is software between applications and the operating system. It does not have control over hardware and rather relies on the operating system to support applications.
+
 2. What is the relationship between threads and processes?
 
 3. Of all the topics previewed in chapter one of the text book, which one are you most looking forward to learning more about? Why?
