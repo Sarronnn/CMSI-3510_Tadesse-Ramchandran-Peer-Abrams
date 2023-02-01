@@ -2,13 +2,15 @@ Due Wednesday of Week 4 (Feb 1st, 2023)
 
 1. What is the difference between an operating system and middleware?
 
-An operating system is software that can manage hardware for the execution of other applications. It manages concurrency, networking, file systems, and interactions between different computations. Middleware is software between applications and the operating system. It does not have control over hardware and rather relies on the operating system to support applications.
+=>An operating system is software that can manage hardware for the execution of other applications. It manages concurrency, networking, file systems, and interactions between different computations. Middleware is software between applications and the operating system. It does not have control over hardware and rather relies on the operating system to support applications.
 
 2. What is the relationship between threads and processes?
 
+=>  The basic difference between a process and a thread is that a process takes place in different memory spaces, whereas a thread executes in the same memory space (Source)
+
 3. Of all the topics previewed in chapter one of the text book, which one are you most looking forward to learning more about? Why?
 
- The topic that most intrigued us in chapter was was section 1.5 'Multiple Computations on one computer'. The advancement of computers is something that we all are interested in, and the section outlines that the process of running multiple computations simultaneously is what leads to a more efficient computer. Through understanding of physichal components, and the knowledege of the theory of how to maximize the efficiency of multiple computations running, we can create new systems that can propell us into the future of the computing world.
+=>The topic that most intrigued us in chapter was was section 1.5 'Multiple Computations on one computer'. The advancement of computers is something that we all are interested in, and the section outlines that the process of running multiple computations simultaneously is what leads to a more efficient computer. Through understanding of physichal components, and the knowledege of the theory of how to maximize the efficiency of multiple computations running, we can create new systems that can propell us into the future of the computing world.
 
 4. Suppose thread A goes through a loop 100 times, each time performing one disk I/O operation, taking 10 milliseconds, and then some computation, taking 1 millisecond. While each 10-millisecond disk operation is in progress, thread A cannot make any use of the processor. Thread B runs for 1 second, purely in the processor, with no I/O. One millisecond of processor time is spent each time the processor switches threads; other than this switching cost, there is no problem with the processor working on thread B during one of thread A's I/O operations. [The processor and disk drive do not contend for memory access bandwidth, for example.]
 
