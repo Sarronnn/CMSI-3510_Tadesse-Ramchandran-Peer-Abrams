@@ -32,6 +32,37 @@ An operating system is software that can manage hardware for the execution of ot
 
 5. Find and read the documentation for `pthread_cancel[]`. Then, using your C programming environment, use the information and the model provided in Figure 2.4 on page 26 of the text book to write a program in which the initial [main] thread creates a second thread. The main thread should sit on a read call of some kind, waiting to read input from the keyboard, waiting until the user presses the Enter key. At that point, it should kill off the second thread and print out a message reporting that it has done so. Meanwhile, the second thread should be in an infinite loop; during each iteration it must sleep five seconds and then print out a message. Try running your program. Can the sleeping thread print its periodic messages while the main thread is waiting for keyboard input? Can the main thread read input, kill the sleeping thread, and print a message while the sleeping thread is in the early part of one of its five-second sleeps?
 
+```c
+#include <pthread.h>
+#include <unistd.h>
+#include <stdio.h>
+
+
+static void *child(void *ignored){
+    while (1 == 1) {
+    sleep(5);
+    printf("Child is still sleeping, shhhh! \n");
+    }
+    return NULL;
+}
+int main(int argc, char *argv[]){
+    pthread_t child_thread;
+    char key_press;
+    int code;
+    code = pthread_create(&child_thread, NULL, child, NULL);
+    if(code){
+    fprintf(stderr, "pthread_create failed with code %d\n", code);
+    }
+
+    while (key_press != 0x0A) {
+        key_press = fgetc(stdin);
+    }
+    pthread_cancel(child_thread);
+    printf("Child thread was murdered \n");
+    return 0;
+}
+```
+
 6. Suppose a system has three threads [T1, T2, and T3] that are all available to run at time 0 and need one, two, and three seconds of processing, respectively. Suppose each thread is run to completion before starting another. Draw six different Gantt charts, one for each possible order the threads can be run in. For each chart, compute the turnaround time of each thread; that is, the time elapsed from when it was _ready [time 0]_ until it is completed [finished]. Also, compute the _average_ turnaround time for _each order_. Which order has the shortest average turnaround time? What is the name of the scheduling policy that produces this order? {You can look this up in the textbook.]
 
 7. Perform an Internet search of the C standard library API and find out how to get information from the command line first by using a `printf[]` call to display a prompt, then another function call [which you will look up] to get the user input. Write a program in C to prompt the user for their demographic information including name, age, class year, and any three other data items you wish. Structure the program as a call-and-response application such that each data item is a single question with a single answer entry. When all data has been obtained, display the data on the console. Each data item must be on a separate line, and it must be appropriately labeled. The output must be done using a **single** `printf[]` statement.
