@@ -32,6 +32,8 @@ An operating system is software that can manage hardware for the execution of ot
 
 5. Find and read the documentation for `pthread_cancel[]`. Then, using your C programming environment, use the information and the model provided in Figure 2.4 on page 26 of the text book to write a program in which the initial [main] thread creates a second thread. The main thread should sit on a read call of some kind, waiting to read input from the keyboard, waiting until the user presses the Enter key. At that point, it should kill off the second thread and print out a message reporting that it has done so. Meanwhile, the second thread should be in an infinite loop; during each iteration it must sleep five seconds and then print out a message. Try running your program. Can the sleeping thread print its periodic messages while the main thread is waiting for keyboard input? Can the main thread read input, kill the sleeping thread, and print a message while the sleeping thread is in the early part of one of its five-second sleeps?
 
+The sleeping thread can print its periodic message while the parent thread waits for input. The parent thread can also read input and kill the thread during any part of the five second sleep phase.
+
 ```c
 #include <pthread.h>
 #include <unistd.h>
