@@ -1,5 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <pthread.h>
+#include <unistd.h>
+
+static void *child(void *ignored){
+    //TODO Child code here
+    return NULL;
+}
 
 int mutex = 1;
 int full  = 0;
