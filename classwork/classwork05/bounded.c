@@ -3,15 +3,13 @@
 #include <pthread.h>
 #include <unistd.h>
 
-static void *child(void *ignored){
-    //TODO Child code here
-    return NULL;
-}
-
 int mutex = 1;
 int full  = 0;
 int empty = 7;          // maximum of seven messages in buffer
 int x     = 0;
+
+
+int count = 0;
 
 int myWait( int s ) {
     return( --s );
@@ -21,52 +19,63 @@ int mySignal( int s ) {
     return( ++s );
 }
 
-int main()
-{
-    int n;
-    void producer();
-    void consumer();
-
-    while( 1 ) {
-        printf( "\n\n   1.Producer\n   2.Consumer\n   3.Exit" );
-        printf("\n      Enter your choice: ");
-        scanf("%d",&n);
-        switch( n ) {
-        case 1:  if( (mutex == 1) && (empty != 0) ) {
-                    producer();
-                    } else {
-                    printf( "\nBuffer is full!!" );
-                    }
-                    break;
-        case 2:  if( (mutex == 1) && (full != 0) ) {
-                    consumer();
-                    } else {
-                    printf("\nBuffer is empty!!");
-                    }
-                    break;
-        case 3:
-        default: exit( 0 );
-                    break;
+static void *producer(void *ignored){
+    while (1) {
+        if( (mutex == 1) && (empty != 0) ) {
+            mutex = myWait( mutex );
+            full  = mySignal( full );
+            empty = myWait( empty );
+            x++;
+            printf( "\t Producer produces the item %d \n", x );
+            mutex = mySignal( mutex );
+            usleep(567890);
+        } else {
+            printf( "Buffer is full!! \n" );
+            usleep(123456);
         }
     }
+    return NULL;
+}
+
+static void *consumer(void *ignored){
+    while (1) {   
+        if( (mutex == 1) && (full != 0) ) {
+            mutex = myWait( mutex );
+            full  = myWait( full );
+            empty = mySignal( empty );
+            printf( "\t Consumer consumes the item %d \n", x );
+            x--;
+            mutex = mySignal( mutex );
+            usleep(1000000);
+        } else {
+            printf("Buffer is empty!! \n");
+            usleep(135790);
+        }
+    }
+    return NULL;
+}
+
+int main() {
+    int wait_( int );
+    int signal_( int );
+    int code = 0;
+    pthread_t producer_thread;
+    pthread_t consumer_thread;
+    
+    code = pthread_create(&producer_thread, NULL, producer, NULL);
+    if(code){
+         fprintf(stderr, "pthread_create failed with code %d\n", code);
+    }
+    
+    code = pthread_create(&consumer_thread, NULL, consumer, NULL);
+    if(code){
+        fprintf(stderr, "pthread_create failed with code %d\n", code);
+    }
+
+    sleep(25);
+    printf("Parent is done sleeping 25 seconds.\n");
+    pthread_cancel(producer_thread);
+    pthread_cancel(consumer_thread);
+    printf("Threads were murdered \n");
     return 0;
-}
-
-void producer() {
-    mutex = myWait( mutex );
-    full  = mySignal( full );
-    empty = myWait( empty );
-    x++;
-    printf( "\n  Producer produces the item %d", x );
-    mutex = mySignal( mutex );
-}
-
-void consumer()
-{
-    mutex = myWait( mutex );
-    full  = myWait( full );
-    empty = mySignal( empty );
-    printf( "\n  Consumer consumes item %d", x );
-    x--;
-    mutex = mySignal( mutex );
 }
