@@ -30,7 +30,7 @@ public class BoundedBuffer2 {
         firstOccupied = (firstOccupied + 1) % buffer.length;
         numOccupied--;
         // in case any inserts are waiting for space, wake them
-    }
+        }
         if(numOccupied == buffer.length -1){
             notifyAll();
         }
