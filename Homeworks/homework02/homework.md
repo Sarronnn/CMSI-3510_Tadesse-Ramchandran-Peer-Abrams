@@ -17,9 +17,118 @@ Explain why this would be a bug.
 
 3. **IN JAVA**: Write a test program in Java for the BoundedBuffer class of Figure 4.17 on page 119 of the textbook. ONLY WRITE THE TEST PROGRAM ~ DON'T MODIFY THE CODE FOR THIS ONE.
 
-  - (DONE ON A SEPARATE FILE: BoundedBufferTest.java)
+(Bounded Buffer)
+```Javascript
+public class BoundedBuffer {
+    private Object[] buffer = new Object[20]; // arbitrary size
+    private int numOccupied = 0;
+    private int firstOccupied = 0;
+    
+    /* invariant: 0 <= numOccupied <= buffer.length
+    0 <= firstOccupied < buffer.length
+    buffer[(firstOccupied + i) % buffer.length]
+    contains the (i+1)th oldest entry,
+    for all i such that 0 <= i < numOccupied */
+
+    public synchronized void insert(Object o)
+    throws InterruptedException
+    {
+        while(numOccupied == buffer.length)
+        // wait for space
+            wait();
+        buffer[(firstOccupied + numOccupied) % buffer.length] = o;
+        numOccupied++;
+        // in case any retrieves are waiting for data, wake them
+        notifyAll();
+    }
+    public synchronized Object retrieve()
+    throws InterruptedException
+    {
+        while(numOccupied == 0)
+        // wait for data
+            wait();
+        Object retrieved = buffer[firstOccupied];
+        buffer[firstOccupied] = null; // may help garbage collector
+        firstOccupied = (firstOccupied + 1) % buffer.length;
+        numOccupied--;
+        // in case any inserts are waiting for space, wake them
+        notifyAll();
+        return retrieved;
+    }
+}
+```
+
+(Test File)
+```Javascript
+public class BoundedBufferTest{
+    public static void main(String[] args){
+        BoundedBuffer buff = new BoundedBuffer();
+        try {
+            buff.insert("Hello");
+            buff.insert("Hi");
+            buff.insert("buff");
+            
+            //Retrieve elements from the buffer
+            Object obj1 = buff.retrieve();
+            Object obj2 = buff.retrieve();
+            Object obj3 = buff.retrieve();
+            
+            //Check that the retrieved elements are the same as the ones inserted
+
+            System.out.println(obj1.equals("Hello"));
+            System.out.println(obj2.equals("Hi"));
+            System.out.println(obj3.equals("buff"));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
 
 4. **IN JAVA**: Modify the BoundedBuffer class of Figure 4.17 [page 119] creating BoundedBuffer2.java. Make the new program call notifyAll() only when inserting into an empty buffer or retrieving from a full buffer. Test that the program still works using your test program from the previous exercise.
+
+(Bounded Buffer 2)
+```Javascript
+public class BoundedBuffer {
+    private Object[] buffer = new Object[20]; // arbitrary size
+    private int numOccupied = 0;
+    private int firstOccupied = 0;
+    
+
+    public synchronized void insert(Object o)
+    throws InterruptedException
+    {
+        while(numOccupied == buffer.length) {
+        // wait for space
+            wait();
+        }
+        buffer[(firstOccupied + numOccupied) % buffer.length] = o;
+        numOccupied++;
+        // in case any retrieves are waiting for data, wake them
+        if(numOccupied == 1){
+        notifyAll();
+        }
+
+    }
+    public synchronized Object retrieve()
+    throws InterruptedException
+    {
+        while(numOccupied == 0)
+        // wait for data
+            wait();
+        Object retrieved = buffer[firstOccupied];
+        buffer[firstOccupied] = null; // may help garbage collector
+        firstOccupied = (firstOccupied + 1) % buffer.length;
+        numOccupied--;
+        // in case any inserts are waiting for space, wake them
+        if(numOccupied == buffer.length){
+            notifyAll();
+        }
+        return retrieved;
+    }
+}
+```
+
 
 5. Suppose T1 writes new values into x and y and T2 reads the values of both x and y. Is it possible for T2 to see the old value of x but the new value of y? Answer this question three times: once assuming the use of two-phase locking, once assuming the read committed isolation level is used and is implemented with short read locks, and once assuming snapshot isolation. In each case, justify your answer.
 

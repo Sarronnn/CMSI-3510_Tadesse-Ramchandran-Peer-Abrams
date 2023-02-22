@@ -1,5 +1,3 @@
-
-
 public class BoundedBuffer {
     private Object[] buffer = new Object[20]; // arbitrary size
     private int numOccupied = 0;
@@ -37,6 +35,4 @@ public class BoundedBuffer {
         }
         return retrieved;
     }
-
-   
 }
