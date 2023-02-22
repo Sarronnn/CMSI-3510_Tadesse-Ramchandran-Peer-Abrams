@@ -38,6 +38,8 @@ Explain why this would be a bug.
 
 6. Assume a page size of 4 KB and the page mapping shown in Figure 6.10 on page 225. What are the virtual addresses of the first and last 4-byte words in page 6? What physical addresses do these translate into?
 
+  - The first virtual address of page 6 is 0, which maps to physical address 12288. The last address is 4096 which maps to physical address 16384.
+
 7. At the lower right of Figure 6.13 on page 236 are page numbers 1047552 and 1047553. Explain how these page numbers were calculated.
 
   - The physical page numbers are calculated based on the starting address of the file and the page size. In this example, the starting address of the file is 1046528, which is the starting address of the first page. The physical page number of the first page is then calculated by dividing the starting address by the page size: 1046528 / 4096 = 256. The physical page number of the second page is then simply 1 more than the physical page number of the first page: 256 + 1 = 257.
