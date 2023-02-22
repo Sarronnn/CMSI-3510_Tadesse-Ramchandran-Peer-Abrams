@@ -18,7 +18,7 @@ Explain why this would be a bug.
 3. **IN JAVA**: Write a test program in Java for the BoundedBuffer class of Figure 4.17 on page 119 of the textbook. ONLY WRITE THE TEST PROGRAM ~ DON'T MODIFY THE CODE FOR THIS ONE.
 
 (Bounded Buffer)
-```Javascript
+```Java
 public class BoundedBuffer {
     private Object[] buffer = new Object[20]; // arbitrary size
     private int numOccupied = 0;
@@ -59,7 +59,7 @@ public class BoundedBuffer {
 ```
 
 (Test File)
-```Javascript
+```Java
 public class BoundedBufferTest{
     public static void main(String[] args){
         BoundedBuffer buff = new BoundedBuffer();
@@ -88,7 +88,7 @@ public class BoundedBufferTest{
 4. **IN JAVA**: Modify the BoundedBuffer class of Figure 4.17 [page 119] creating BoundedBuffer2.java. Make the new program call notifyAll() only when inserting into an empty buffer or retrieving from a full buffer. Test that the program still works using your test program from the previous exercise.
 
 (Bounded Buffer 2)
-```Javascript
+```Java
 public class BoundedBuffer {
     private Object[] buffer = new Object[20]; // arbitrary size
     private int numOccupied = 0;
@@ -155,6 +155,29 @@ public class BoundedBuffer {
 
 8. Write a program that loops many times, each time using an inner loop to access every 4096th element of a large array of bytes. Time how long your program takes per array access. Do this with varying array sizes. Are there any array sizes when the average time suddenly changes? Write a report in which you explain what you did, and the hardware and software system context in which you did it, carefully enough that someone could replicate your results.
 
+(timeArray)
+```Javascript
+function timeArrayAccess(size) {
+    const arr = new Uint8Array(size);
+    const iterations = 100000;
+    const start = performance.now();
+    for (let i = 0; i < iterations; i++) {
+      for (let j = 0; j < size; j += 4096) {
+        const val = arr[j];
+      }
+    }
+    const end = performance.now();
+    const avgTime = (end - start) / (iterations * (size / 4096));
+    return avgTime;
+  }
+  
+  const sizes = [1000000, 2000000, 4000000, 8000000, 16000000];
+  for (let i = 0; i < sizes.length; i++) {
+    const size = sizes[i];
+    const time = timeArrayAccess(size);
+    console.log(`Array size: ${size}, Average time per access: ${time.toFixed(20)}ms`);
+  }
+```
   - I have this program run for arrays of sizes 1, 2, 4, 8, and 16 million, and as the function runs over larger arrays the average time per index seems to decrease. I do not know if the hardware that I have impacted this, but after 30-40 runs with diff results, the same trend occurs.
 
 9. Figure 7.20 [page 324] contains a simple C program that loops three times, each time calling the fork() system call. Afterward it sleeps for 30 seconds. Compile and run this program, and while it is in its 30-second sleep, use the ps command in a second terminal window to get a listing of processes. How many processes are shown running the program? Explain by drawing a family tree of the processes, with one box for each process and a line connecting each (except the first one) to its parent
