@@ -23,12 +23,7 @@ public class BoundedBuffer {
     private Object[] buffer = new Object[20]; // arbitrary size
     private int numOccupied = 0;
     private int firstOccupied = 0;
-    
-    /* invariant: 0 <= numOccupied <= buffer.length
-    0 <= firstOccupied < buffer.length
-    buffer[(firstOccupied + i) % buffer.length]
-    contains the (i+1)th oldest entry,
-    for all i such that 0 <= i < numOccupied */
+  
 
     public synchronized void insert(Object o)
     throws InterruptedException
@@ -89,7 +84,7 @@ public class BoundedBufferTest{
 
 (Bounded Buffer 2)
 ```Java
-public class BoundedBuffer {
+public class BoundedBuffer2 {
     private Object[] buffer = new Object[20]; // arbitrary size
     private int numOccupied = 0;
     private int firstOccupied = 0;
@@ -113,7 +108,7 @@ public class BoundedBuffer {
     public synchronized Object retrieve()
     throws InterruptedException
     {
-        while(numOccupied == 0)
+        while(numOccupied == 0){
         // wait for data
             wait();
         Object retrieved = buffer[firstOccupied];
@@ -121,7 +116,8 @@ public class BoundedBuffer {
         firstOccupied = (firstOccupied + 1) % buffer.length;
         numOccupied--;
         // in case any inserts are waiting for space, wake them
-        if(numOccupied == buffer.length){
+        }
+        if(numOccupied == buffer.length -1){
             notifyAll();
         }
         return retrieved;
