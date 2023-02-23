@@ -167,7 +167,7 @@ function timeArrayAccess(size) {
       }
     }
     const end = performance.now();
-    const avgTime = (end - start) / (iterations * (size / 4096));
+    const avgTime = (size / 4096) / (end - start);
     return avgTime;
   }
   
