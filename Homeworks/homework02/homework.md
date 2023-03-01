@@ -178,4 +178,4 @@ function timeArrayAccess(size) {
 
 9. Figure 7.20 [page 324] contains a simple C program that loops three times, each time calling the fork() system call. Afterward it sleeps for 30 seconds. Compile and run this program, and while it is in its 30-second sleep, use the ps command in a second terminal window to get a listing of processes. How many processes are shown running the program? Explain by drawing a family tree of the processes, with one box for each process and a line connecting each (except the first one) to its parent.
 
-![An image of the multiforker.c processes](Homeworks/homework02/multiforker_processes.png)
+![An image of the multiforker.c processes](/Users/saarahpeer/git/CMSI-3510_Tadesse-Ramchandran-Peer-Abrams/Homeworks/homework02/multiforker_processes.png)
