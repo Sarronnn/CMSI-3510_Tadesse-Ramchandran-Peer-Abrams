@@ -178,4 +178,24 @@ function timeArrayAccess(size) {
 
 9. Figure 7.20 [page 324] contains a simple C program that loops three times, each time calling the fork() system call. Afterward it sleeps for 30 seconds. Compile and run this program, and while it is in its 30-second sleep, use the ps command in a second terminal window to get a listing of processes. How many processes are shown running the program? Explain by drawing a family tree of the processes, with one box for each process and a line connecting each (except the first one) to its parent.
 
+This is the following code I ran from the textbook. 
+```c
+#include <unistd.h>
+int main(int argc, char **argv){
+  int i;
+  for(i=0;i<3;i++){ 
+      fork(); 
+  }
+  sleep(30);               
+}
+```
+
+It is also included in the [multiforker.c](https://github.com/Sarronnn/CMSI-3510_Tadesse-Ramchandran-Peer-Abrams/blob/1dc429be0706f2c1e18b7f354785de013bce60d6/Homeworks/homework02/multiforker.c) file in this repo.
+
+This is the output of running the ps command in a seperate terminal during the programs 30 second sleep:
+
 ![An image of the multiforker.c processes](https://github.com/Sarronnn/CMSI-3510_Tadesse-Ramchandran-Peer-Abrams/blob/73203ec7efad32a1a4ef5b4db3524f0151019d32/Homeworks/homework02/multiforker_processes.png)
+
+We can see in the above image that there are 10 processes in total. 8 of these processes have to do with forking the multiforker program. We can visualize this as the following family tree:
+
+![An image of the tree of processes](https://github.com/Sarronnn/CMSI-3510_Tadesse-Ramchandran-Peer-Abrams/Homeworks/homework02/tree.png)
