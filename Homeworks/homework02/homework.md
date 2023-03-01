@@ -196,6 +196,8 @@ This is the output of running the ps command in a seperate terminal during the p
 
 ![An image of the multiforker.c processes](https://github.com/Sarronnn/CMSI-3510_Tadesse-Ramchandran-Peer-Abrams/blob/73203ec7efad32a1a4ef5b4db3524f0151019d32/Homeworks/homework02/multiforker_processes.png)
 
-We can see in the above image that there are 10 processes in total. 8 of these processes have to do with forking the multiforker program. We can visualize this as the following family tree:
+We can see in the above image that there are 10 processes in total. 8 of these processes have to do with forking within the multiforker program. We can visualize this as the following family tree:
 
-![An image of the tree of processes](https://github.com/Sarronnn/CMSI-3510_Tadesse-Ramchandran-Peer-Abrams/Homeworks/homework02/tree.png)
+![An image of the tree of processes](https://github.com/Sarronnn/CMSI-3510_Tadesse-Ramchandran-Peer-Abrams/blob/fa95fab7c03657b6afa670d7253d5b9651b1500a/Homeworks/homework02/tree.png)
+
+If we count the number of letters in the tree diagram, we can see that there are 8 for the 8 processes.
