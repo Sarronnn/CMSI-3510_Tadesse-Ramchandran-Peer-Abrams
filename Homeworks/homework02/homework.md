@@ -200,4 +200,4 @@ We can see in the above image that there are 10 processes in total. 8 of these p
 
 ![An image of the tree of processes](https://github.com/Sarronnn/CMSI-3510_Tadesse-Ramchandran-Peer-Abrams/blob/fa95fab7c03657b6afa670d7253d5b9651b1500a/Homeworks/homework02/tree.png)
 
-If we count the number of letters in the tree diagram, we can see that there are 8 for the 8 processes.
+If we count the number of letters/nodes in the tree diagram, we can see that there are 8 for the 8 processes.
