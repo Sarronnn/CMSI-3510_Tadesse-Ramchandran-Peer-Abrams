@@ -2,7 +2,7 @@ public class BoundedBuffer2 {
     private Object[] buffer = new Object[20]; // arbitrary size
     private int numOccupied = 0;
     private int firstOccupied = 0;
-    
+
 
     public synchronized void insert(Object o)
     throws InterruptedException
@@ -22,10 +22,11 @@ public class BoundedBuffer2 {
     public synchronized Object retrieve()
     throws InterruptedException
     {
+       Object retrieved = null;
         while(numOccupied == 0){
         // wait for data
             wait();
-        Object retrieved = buffer[firstOccupied];
+        retrieved = buffer[firstOccupied];
         buffer[firstOccupied] = null; // may help garbage collector
         firstOccupied = (firstOccupied + 1) % buffer.length;
         numOccupied--;

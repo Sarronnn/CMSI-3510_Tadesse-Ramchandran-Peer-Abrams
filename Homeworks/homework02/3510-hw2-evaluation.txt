@@ -1,0 +1,74 @@
+
+
+CMSI 3510 Operating Systems
+Spring Semester 2023
+Results for Homework #2 Evaluation
+==================================
+
+Question 1 mutex reversing:          5/ 5 points
+   Perfect
+
+Question 2 auditing code change:     5/ 5 points
+   Perfect
+
+Question 3 test program:            20/20 points
+   The intent was to write a program that would read/write the buffer at
+   least a few times, showing that the two methods would interact properly.
+   However, since the specification didn't actually say that, I can't
+   complain about it!  :D  It would be good to give the user a little bit
+   more information when testing, though.  "true true true" doesn't really
+   tell much about what happened in the program.
+
+Question 4 notifyall() addition:     8/10 points
+   This one didn't compile because you didn't have the 'retrieved' variable
+   declared outside the 'while()' loop so the compiler couldn't find it in
+   the 'return' statement.  I fixed that for you so it compiles.  However,
+   you don't have a test program that tests the new version of the code as
+   is specified in the problem statement.  ACK!
+
+Question 5a 2-phase locking:         5/ 5 points
+   Perfect
+
+Question 5b short read locks:        4/ 5 points
+   No, it's not possible.  With read committed isolation, the writes will
+   have exclusive locks, so T1 will have exclusive write access for the
+   duration of the transaction.  Since write locks are exclusive, in this
+   case it's the same outcome as with two-phase locking.
+
+Question 5c snapshot isolation:      4/ 5 points
+   Actually, yes, it's possible.  With snapshot isolation, the values are
+   written to DIFFERENT locations than the original storage, and then
+   later written to the original location.  If T2 reads x before that
+   update write is done, and reads y AFTER that update write is done, it
+   would have two inconsistent values, the new value for x and the old
+   value for y.
+
+Question 6 virtual address xlate:    5/ 5 points
+   Perfect
+
+Question 7 calc. explanation:        5/ 5 points
+   Perfect
+
+Question 8 loop 4096 analysis:      20/20 points
+   Very interesting analysis ~ unexpected behavior!
+
+Question 9 fork() tree:             15/15 points
+   Perfect
+
+Total 96 out of 100 = 96.00% which is an A
+
+Comments:
+---------
+Nice work!
+
+
+===========================
+Current course evaluations:
+===========================
+
+    Homework01:  12.00/ 12 = 100.00% which is 10.00 points
+    Homework02:  96.00/100 =  96.00% which is  9.60 points
+Prelim. Design:  24.25/ 25 =  97.00% which is  9.70 points
+                                           -----
+                                   Total:  29.30 out of 30.00 = 97.67%
+                                             which is an A-plus
